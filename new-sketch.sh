@@ -9,4 +9,4 @@ else
     tmpFolder="${currentDate}-$1"
 fi
 
-cp -R ./p5/empty-example $tmpFolder
+cp -R ./p5/empty-example $tmpFolder-$(openssl rand -hex 4)
