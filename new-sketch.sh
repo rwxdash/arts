@@ -2,11 +2,7 @@
 
 currentDate=$(date +'%Y%d%m')
 
-if [ -z "$1" ]
-then
-    tmpFolder=$currentDate
-else
-    tmpFolder="${currentDate}-$1"
-fi
+tmpFolder=$currentDate-$(openssl rand -hex 4)
+cp -R ./p5/empty-example $tmpFolder
 
-cp -R ./p5/empty-example $tmpFolder-$(openssl rand -hex 4)
+echo $(pwd)/$tmpFolder/index.html | pbcopy
