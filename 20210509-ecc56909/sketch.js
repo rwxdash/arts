@@ -1,9 +1,9 @@
 const subCount = 7;
-const mainCount = 7;
-const padding = 25;
-const border = 50;
-const gridSize = 10;
-const objectSize = 10;
+const mainCount = 1;
+const padding = 0;
+const border = 350;
+const gridSize = 100;
+const objectSize = 100;
 
 const locationOffset = (gridSize === objectSize) ? 0 : (gridSize - objectSize) / 2;
 const canvasSize = ((gridSize * subCount) + padding) * mainCount + (border * 2) - padding;
@@ -19,6 +19,12 @@ const palette = [
   ["#087e8b", "#ff5a5f", "#3c3c3c", "#f5f5f5", "#c1839f"],
   ["#f7fff6", "#bcebcb", "#87d68d", "#93b48b", "#8491a3"],
   ["#7a7a7a", "#ecf8f8", "#00171f", "#a5a29b", "#f7f3f2"],
+  ["#ceb992", "#73937e", "#585563", "#5b2e48", "#471323"],
+]
+
+const bgPalette = [
+  '#291720', '#820263', '#04A777', '#177E89', '#56445D',
+  '#4F7CAC', '#C0E0DE', '#3C474B'
 ]
 
 function setup() {
@@ -29,23 +35,24 @@ function setup() {
 
 function draw() {
   noStroke();
-  fill(40);
+  const bg = bgPalette[floor(random(0, bgPalette.length))]
+  fill(bg);
   rect(0, 0, canvasSize, canvasSize);
 
   for (let y = 0; y < mainCount; y++) {
     for (let x = 0; x < mainCount; x++) {
       let locX = x * gridSize * subCount + x * padding + border + locationOffset;
       let locY = y * gridSize * subCount + y * padding + border + locationOffset;
-      fillCells(locX, locY, palette[floor(random(0, palette.length - 1))]);
+      fillCells(locX, locY, palette[floor(random(0, palette.length))], bg);
     }
   }
 
   noLoop();
 }
 
-function fillCells(x, y, colorPalette) {
+function fillCells(x, y, colorPalette, bg) {
   strokeWeight(1);
-  stroke(40);
+  stroke(bg);
   noFill();
   rect(x, y, subCount * gridSize);
   noStroke();
@@ -59,7 +66,7 @@ function fillCells(x, y, colorPalette) {
       if (random(0, 1) > 0.5) {
         fill(colorPalette[floor(random(0, 4))]);
       } else {
-        fill(40);
+        fill(bg);
       }
 
       let subLocX = x + i * gridSize + locationOffset;
